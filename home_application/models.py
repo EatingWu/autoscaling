@@ -10,6 +10,10 @@ See the License for the specific language governing permissions and limitations 
 """
 
 from django.db import models
+
+'''
+主机列表
+'''
 class HostInfo(models.Model):
     host_ip = models.CharField(max_length=32)
     host_name = models.CharField(max_length=50)
@@ -18,3 +22,20 @@ class HostInfo(models.Model):
     class Meta:
         verbose_name = u"主机IP"
         verbose_name_plural = u"主机IP"
+
+'''
+主机状态
+'''
+class CeleryHostInfo(models.Model):
+    host_ip = models.CharField(max_length=32)
+    host_name = models.CharField(max_length=32)
+    cpu_usage = models.FloatField(max_length=32)
+    mem_usage = models.FloatField(max_length=32)
+    running_vms = models.IntegerField()
+    stopped_vms = models.IntegerField()
+    total_vms = models.IntegerField()
+    status = models.CharField(max_length=32)
+
+    class Meta:
+        verbose_name = u"主机状态"
+        verbose_name_plural = u"主机状态"
