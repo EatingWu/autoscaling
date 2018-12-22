@@ -51,14 +51,26 @@
                         </div>
                         <div class="navbar-collapse collapse" id="king-header2-navbar-collapse">
                             <ul class="nav navbar-nav navbar-left hidden-sm">
-                                <li class="open">
+                                <%
+                                    home = host_list = dev_guide = contactus = ''
+                                    relative_path = APP_PATH
+                                    if relative_path == SITE_URL or relative_path.startswith(SITE_URL + "?"):
+                                      home = 'king-navbar-active'
+                                    elif relative_path.startswith(SITE_URL + "dev-guide/"):
+                                      dev_guide = 'king-navbar-active'
+                                    elif relative_path.startswith(SITE_URL + "contactus/"):
+                                      contactus = 'king-navbar-active'
+                                    elif relative_path.startswith(SITE_URL + "host_list/"):
+                                      host_list = 'king-navbar-active'
+                                %>
+                                <li class="${home}">
                                     <a href="javascript:void(0);">
-                                        <span>项目信息</span>
+                                        <span>主机注册</span>
                                     </a>
                                 </li>
-                                <li>
-                                    <a href="javascript:void(0);">
-                                        <span>故障预警</span>
+                                <li class="host_list">
+                                    <a href="${SITE_URL}host_list/">
+                                        <span>主机列表</span>
                                     </a>
                                 </li>
                                 <li>

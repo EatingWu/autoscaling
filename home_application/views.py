@@ -33,6 +33,13 @@ def contactus(request):
     """
     return render_mako_context(request, '/home_application/contact.html')
 
+def host_list(request):
+    """
+    主机列表
+    """
+    datas = HostInfo.objects.all()
+    return render_mako_context(request, '/home_application/host_list.html',{ "datas": datas})
+
 def record_host(request):
     '''
     录入主机
