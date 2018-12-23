@@ -39,3 +39,9 @@ class CeleryHostInfo(models.Model):
     class Meta:
         verbose_name = u"主机状态"
         verbose_name_plural = u"主机状态"
+
+'''
+调试用的数据库,保存一些信息
+'''
+class DebugInfo(models.Model):
+    text_info = models.CharField()
