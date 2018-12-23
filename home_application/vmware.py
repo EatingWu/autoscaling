@@ -169,11 +169,11 @@ def get_host_info2(host_ip,host_name,host_password):
     return hosts_dict_data
 
 def get_vms_info(host_ip,host_name,host_password):
-    hosts_dict_data = []
+    vms_dict_data = []
     server = VIServer()
     server.connect(host_ip, host_name, host_password)
     # print 'VC connect successful...'
-    DebugInfo.objects.create(text_info='VM connect successful...')
+    #DebugInfo.objects.create(text_info='VM connect successful...')
 
     vms_info = {}
 
@@ -232,9 +232,11 @@ def get_vms_info(host_ip,host_name,host_password):
     for i in range(len(vms_dict)):
         vm = vms_dict[i]
         # pprint.pprint(vm)
-        hosts_dict_data.append(vm)
+        DebugInfo.objects.create(text_info=vm)
+        vms_dict_data.append(vm)
+        DebugInfo.objects.create(text_info=vms_dict_data)
 
     #print 'VC disconnect successful...'
 
     server.disconnect()
-    return hosts_dict_data
+    return vms_dict_data
