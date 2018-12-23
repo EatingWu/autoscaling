@@ -25,7 +25,7 @@ from home_application.models import HostInfo,CeleryHostInfo
 from home_application.vmware import get_host_info
 
 @task()
-def check_host_status():
+def async_task():
     """
     定义一个 celery 异步任务
     """
@@ -80,7 +80,7 @@ def execute_task():
     #now = datetime.datetime.now()
     #logger.error(u"celery 定时任务启动，将在60s后执行，当前时间：{}".format(now))
     # 调用定时任务
-    check_host_status.apply_async()
+    async_task.apply_async()
 
 
 @periodic_task(run_every=crontab(minute='*/1', hour='*', day_of_week="*"))
