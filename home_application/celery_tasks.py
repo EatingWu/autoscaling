@@ -95,10 +95,11 @@ def check_vms_status():
         name_value = HostInfo.objects.filter(id=host_info_id).values('host_name')[0].get('host_name')
         password_value = HostInfo.objects.filter(id=host_info_id).values('host_password')[0].get('host_password')
         vms_dict_datalist = get_vms_info(ip_value, name_value, password_value)
-        DebugInfo.objects.create(text_info=vms_dict_datalist)
+        #DebugInfo.objects.create(text_info=vms_dict_datalist)
         vms_dict_data_len = len(vms_dict_datalist)
         for vm_info in range(0, vms_dict_data_len):
             vm_name = CeleryVMsLatestInfo.objects.filter(vm_ip=vms_dict_datalist[vm_info].get("name")).values("name")
+            DebugInfo.objects.create(text_info=vm_name)
             if vm_name:
                 CeleryVMsLatestInfo.objects.filter(vm_name=vms_dict_datalist[vm_info].get("name")).update(
                                             vm_ip=vms_dict_datalist[vm_info].get('guest.ipAddress',''),
