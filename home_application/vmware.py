@@ -232,9 +232,9 @@ def get_vms_info(host_ip,host_name,host_password):
     for i in range(len(vms_dict)):
         vm = vms_dict[i]
         # pprint.pprint(vm)
-        DebugInfo.objects.create(text_info=vm)
+        #DebugInfo.objects.create(text_info=vm)
         vms_dict_data.append(vm)
-        DebugInfo.objects.create(text_info=vms_dict_data)
+        #DebugInfo.objects.create(text_info=vms_dict_data)
 
     #print 'VC disconnect successful...'
 
