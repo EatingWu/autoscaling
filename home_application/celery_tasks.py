@@ -7,9 +7,7 @@ You may obtain a copy of the License at http://opensource.org/licenses/MIT
 Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
 an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and limitations under the License.
-
 celery 任务示例
-
 本地启动celery命令: python  manage.py  celery  worker  --settings=settings
 周期性任务还需要启动celery调度命令：python  manage.py  celerybeat --settings=settings
 """
@@ -21,8 +19,6 @@ from celery.task import periodic_task
 
 from common.log import logger
 
-from home_application.models import HostInfo,CeleryHostInfo
-from home_application.vmware import get_host_info
 
 @task()
 def async_task(x, y):
@@ -58,4 +54,4 @@ def get_time():
     """
     execute_task()
     now = datetime.datetime.now()
-logger.error(u"celery 周期任务调用成功，当前时间：{}".format(now))
+    logger.error(u"celery 周期任务调用成功，当前时间：{}".format(now))
