@@ -61,7 +61,7 @@ def check_host_status():
         password_value = HostInfo.objects.filter(id=host_info_id).values('host_password')[0].get('host_password')
         #print ip_value, name_value, password_value
         hosts_dict_datalist = get_host_info(ip_value, name_value, password_value)
-        DebugInfo.objects.create(text_info=hosts_dict_datalist)
+        #DebugInfo.objects.create(text_info=hosts_dict_datalist)
         #print dir(CeleryHostInfo.objects)
         hosts_dict_data_len = len(hosts_dict_datalist)
         for host_info in range(0,hosts_dict_data_len):

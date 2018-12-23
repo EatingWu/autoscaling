@@ -5,6 +5,7 @@ import pysphere
 from pysphere import VIServer, MORTypes, VIProperty, VIMor, VITask
 from pysphere.vi_virtual_machine import VIVirtualMachine
 from pysphere.resources import VimService_services as VI
+from models import DebugInfo
 import pprint
 import ssl
 ssl._create_default_https_context = ssl._create_unverified_context #解决python出现ssl：certificate_verify_failed
@@ -12,7 +13,7 @@ ssl._create_default_https_context = ssl._create_unverified_context #解决python
 '''
 输出主机信息
 '''
-def get_host_info(host_ip,host_name,host_password):
+def get_host_info_test(host_ip,host_name,host_password):
     hosts_dict_data = [
         {'hostbiosinfo': '-[FHE108SUS-1.30]-',
          'hostcpuhealthinfo': 'green',
@@ -73,11 +74,12 @@ def get_host_info(host_ip,host_name,host_password):
     ]
     return hosts_dict_data
 
-def get_host_info2(host_ip,host_name,host_password):
+def get_host_info(host_ip,host_name,host_password):
     hosts_dict_data = []
     server = VIServer()
     server.connect(host_ip, host_name, host_password)
     #print 'VC connect successful...'
+    DebugInfo.objects.create(text_info='VC connect successful...')
 
     for d, hname in server.get_hosts().items():
 
