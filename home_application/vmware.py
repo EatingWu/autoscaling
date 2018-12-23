@@ -167,3 +167,73 @@ def get_host_info2(host_ip,host_name,host_password):
 
     server.disconnect()
     return hosts_dict_data
+
+def get_vms_info(host_ip,host_name,host_password):
+    hosts_dict_data = []
+    server = VIServer()
+    server.connect(host_ip, host_name, host_password)
+    # print 'VC connect successful...'
+
+    vms_info = {}
+
+    # VMware API接口定义
+    properties = [
+        'summary.vm',
+        'summary.config.numEthernetCards',
+        'summary.config.annotation',
+        'summary.config.numVirtualDisks',
+        'summary.quickStats.overallCpuUsage',
+        'summary.quickStats.guestMemoryUsage',
+        'summary.quickStats.ftLogBandwidth',
+        'summary.quickStats.hostMemoryUsage',
+        'summary.quickStats.uptimeSeconds',
+        'summary.runtime.powerState',
+        'summary.runtime.bootTime',
+        'summary.runtime.host',
+        'summary.runtime.maxCpuUsage',
+        'summary.runtime.maxMemoryUsage',
+        'summary.storage.committed',
+        'summary.storage.uncommitted',
+        'summary.storage.unshared',
+        'summary.storage.timestamp',
+        'guestHeartbeatStatus',
+        'guest.toolsStatus',
+        'guest.toolsVersionStatus',
+        'guest.toolsVersion',
+        'guest.guestId',
+        'guest.guestFullName',
+        'guest.guestState',
+        'guest.ipAddress',
+        'guest.hostName',
+        'name',
+        'parent',
+        'config.template',
+        'config.hardware.numCPU',
+        'config.hardware.memoryMB'
+    ]
+
+    # 通过_retrieve_properties_traversal方法传入API接口定义拿到对象类型为 VirtualMachine 的信息
+    props = server._retrieve_properties_traversal(property_names=properties, obj_type='VirtualMachine')
+
+    # 通过server.get_hosts()拿到VC下面所有的host信息（字典）；
+    # 通过这个方法可以把'guest.hostName'取出的MOR对象转换成实际的hostname
+    # hostname = server.get_hosts().items()
+
+    for prop in props:
+        mor = prop.Obj
+        vm = {}
+        for p in prop.PropSet:
+            vm[p.Name] = p.Val
+        vms_info[mor] = vm
+
+    vms_dict = vms_info.values()
+
+    for i in range(len(vms_dict)):
+        vm = vms_dict[i]
+        # pprint.pprint(vm)
+        hosts_dict_data.append(vm)
+
+    #print 'VC disconnect successful...'
+
+    server.disconnect()
+    return hosts_dict_data

@@ -18,8 +18,8 @@ import datetime
 from celery import task
 from celery.schedules import crontab
 from celery.task import periodic_task
-from models import HostInfo,CeleryHostInfo,DebugInfo
-from vmware import  get_host_info
+from models import HostInfo,CeleryHostInfo,DebugInfo,CeleryVMsLatestInfo
+from vmware import  get_host_info,get_vms_info
 
 from common.log import logger
 
@@ -87,6 +87,40 @@ def check_host_status():
                                               total_vms=hosts_dict_datalist[host_info].get('hosttotalvms'),
                                               status=hosts_dict_datalist[host_info].get('hoststatus'))
 
+@task()
+def check_vms_status():
+    host_info_len = HostInfo.objects.count()
+    for host_info_id in range(1, host_info_len + 1):
+        ip_value = HostInfo.objects.filter(id=host_info_id).values('host_ip')[0].get('host_ip')
+        name_value = HostInfo.objects.filter(id=host_info_id).values('host_name')[0].get('host_name')
+        password_value = HostInfo.objects.filter(id=host_info_id).values('host_password')[0].get('host_password')
+        vms_dict_datalist = get_vms_info(ip_value, name_value, password_value)
+        vms_dict_data_len = len(vms_dict_datalist)
+        for vm_info in range(0, vms_dict_data_len):
+            vm_name = CeleryVMsLatestInfo.objects.filter(vm_ip=vms_dict_datalist[vm_info].get("name")).values("name")
+            if vm_name:
+                CeleryVMsLatestInfo.objects.filter(vm_name=vms_dict_datalist[vm_info].get("name")).update(
+                                            vm_ip=vms_dict_datalist[vm_info].get('guest.ipAddress',''),
+                                            vm_name=vms_dict_datalist[vm_info].get('name',''),
+                                            vm_cpu=vms_dict_datalist[vm_info].get('config.hardware.numCPU',''),
+                                            vm_memory=vms_dict_datalist[vm_info].get('config.hardware.memoryMB',''),
+                                            vm_space=(vms_dict_datalist[vm_info].get('summary.storage.committed',''))/(1024*1024),
+                                            vm_osname=vms_dict_datalist[vm_info].get('guest.guestFullName',''),
+                                            vm_host=ip_value,
+                                            vm_lastmodify=vms_dict_datalist[vm_info].get('summary.runtime.bootTime',''),
+                                            vm_uptime=vms_dict_datalist[vm_info].get('summary.quickStats.uptimeSeconds',''),
+                                            vm_status=vms_dict_datalist[vm_info].get('guestHeartbeatStatus',''))
+            else:
+                CeleryVMsLatestInfo.objects.create(vm_name=vms_dict_datalist[vm_info].get("name"),
+                                            vm_ip=vms_dict_datalist[vm_info].get('guest.ipAddress', ''),
+                                            vm_cpu=vms_dict_datalist[vm_info].get('config.hardware.numCPU', ''),
+                                            vm_memory=vms_dict_datalist[vm_info].get('config.hardware.memoryMB', ''),
+                                            vm_space=(vms_dict_datalist[vm_info].get('summary.storage.committed', '')) / (1024 * 1024),
+                                            vm_osname=vms_dict_datalist[vm_info].get('guest.guestFullName', ''),
+                                            vm_host=ip_value,
+                                            vm_lastmodify=vms_dict_datalist[vm_info].get('summary.runtime.bootTime', ''),
+                                            vm_uptime=vms_dict_datalist[vm_info].get('summary.quickStats.uptimeSeconds', ''),
+                                            vm_status=vms_dict_datalist[vm_info].get('guestHeartbeatStatus', ''))
 
 @periodic_task(run_every=crontab(minute='*/1', hour='*', day_of_week="*"))
 def get_time():
@@ -97,5 +131,6 @@ def get_time():
     periodic_task：程序运行时自动触发周期任务
     """
     check_host_status.apply_async()
+    check_vms_status.apply_async()
     now = datetime.datetime.now()
     logger.error(u"celery 周期任务调用成功，当前时间：{}".format(now))
