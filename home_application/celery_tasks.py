@@ -59,6 +59,7 @@ def check_host_status():
         ip_value = HostInfo.objects.filter(id=host_info_id).values('host_ip')[0].get('host_ip')
         name_value = HostInfo.objects.filter(id=host_info_id).values('host_name')[0].get('host_name')
         password_value = HostInfo.objects.filter(id=host_info_id).values('host_password')[0].get('host_password')
+        DebugInfo.objects.create(text_info=ip_value+name_value+password_value)
         #print ip_value, name_value, password_value
         hosts_dict_datalist = get_host_info(ip_value, name_value, password_value)
         #DebugInfo.objects.create(text_info=hosts_dict_datalist)
