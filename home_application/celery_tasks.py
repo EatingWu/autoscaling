@@ -18,8 +18,6 @@ import datetime
 from celery import task
 from celery.schedules import crontab
 from celery.task import periodic_task
-from home_application.models import HostInfo,CeleryHostInfo
-from vmware import  get_host_info
 
 from common.log import logger
 
@@ -49,44 +47,8 @@ def execute_task():
     # 调用定时任务
     async_task.apply_async(args=[now.hour, now.minute], eta=now + datetime.timedelta(seconds=60))
 
-@task()
-def check_host_status():
-    hosts_dict_flag = False
-    hosts_dict_datalist = []
-    host_info_len = HostInfo.objects.count()
-    for host_info_id in range(1, host_info_len + 1):
-        #print host_info_id
-        ip_value = HostInfo.objects.filter(id=host_info_id).values('host_ip')[0].get('host_ip')
-        name_value = HostInfo.objects.filter(id=host_info_id).values('host_name')[0].get('host_name')
-        password_value = HostInfo.objects.filter(id=host_info_id).values('host_password')[0].get('host_password')
-        #print ip_value, name_value, password_value
-        hosts_dict_datalist = get_host_info(ip_value, name_value, password_value)
-        #print dir(CeleryHostInfo.objects)
-        hosts_dict_data_len = len(hosts_dict_datalist)
-        for host_info in range(0,hosts_dict_data_len):
-            #print(hosts_dict_datalist[host_info].get("hostname"))
-            host_name = CeleryHostInfo.objects.filter(host_name=hosts_dict_datalist[host_info].get("hostname")).values("host_name")
-            if host_name:
-                #print "exist"
-                CeleryHostInfo.objects.filter(host_name=hosts_dict_datalist[host_info].get('hostname')).update(host_ip=ip_value,
-                                              cpu_usage=hosts_dict_datalist[host_info].get('hostcpuusagepercent'),
-                                              mem_usage=hosts_dict_datalist[host_info].get('hostmemoryusagepercent'),
-                                              running_vms=hosts_dict_datalist[host_info].get('hostrunningvms'),
-                                              stopped_vms=hosts_dict_datalist[host_info].get('hoststoppedvms'),
-                                              total_vms=hosts_dict_datalist[host_info].get('hosttotalvms'),
-                                              status=hosts_dict_datalist[host_info].get('hoststatus'))
-            else:
-                #print "new"
-                CeleryHostInfo.objects.create(host_ip=ip_value, host_name=hosts_dict_datalist[host_info].get('hostname'),
-                                              cpu_usage=hosts_dict_datalist[host_info].get('hostcpuusagepercent'),
-                                              mem_usage=hosts_dict_datalist[host_info].get('hostmemoryusagepercent'),
-                                              running_vms=hosts_dict_datalist[host_info].get('hostrunningvms'),
-                                              stopped_vms=hosts_dict_datalist[host_info].get('hoststoppedvms'),
-                                              total_vms=hosts_dict_datalist[host_info].get('hosttotalvms'),
-                                              status=hosts_dict_datalist[host_info].get('hoststatus'))
 
-
-@periodic_task(run_every=crontab(minute='*/1', hour='*', day_of_week="*"))
+@periodic_task(run_every=crontab(minute='*/5', hour='*', day_of_week="*"))
 def get_time():
     """
     celery 周期任务示例
@@ -94,6 +56,6 @@ def get_time():
     run_every=crontab(minute='*/5', hour='*', day_of_week="*")：每 5 分钟执行一次任务
     periodic_task：程序运行时自动触发周期任务
     """
-    check_host_status.apply_async()
+    execute_task()
     now = datetime.datetime.now()
     logger.error(u"celery 周期任务调用成功，当前时间：{}".format(now))

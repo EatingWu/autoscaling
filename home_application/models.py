@@ -9,33 +9,4 @@ an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express o
 See the License for the specific language governing permissions and limitations under the License.
 """
 
-from django.db import models
-
-'''
-主机列表
-'''
-class HostInfo(models.Model):
-    host_ip = models.CharField(max_length=32)
-    host_name = models.CharField(max_length=50)
-    host_password = models.CharField(max_length=50)
-
-    class Meta:
-        verbose_name = u"主机IP"
-        verbose_name_plural = u"主机IP"
-
-'''
-主机状态
-'''
-class CeleryHostInfo(models.Model):
-    host_ip = models.CharField(max_length=32)
-    host_name = models.CharField(max_length=32)
-    cpu_usage = models.FloatField(max_length=32)
-    mem_usage = models.FloatField(max_length=32)
-    running_vms = models.IntegerField()
-    stopped_vms = models.IntegerField()
-    total_vms = models.IntegerField()
-    status = models.CharField(max_length=32)
-
-    class Meta:
-        verbose_name = u"主机状态"
-        verbose_name_plural = u"主机状态"
+# from django.db import models
