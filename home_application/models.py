@@ -9,4 +9,12 @@ an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express o
 See the License for the specific language governing permissions and limitations under the License.
 """
 
-# from django.db import models
+from django.db import models
+class HostInfo(models.Model):
+    host_ip = models.CharField(max_length=32)
+    host_name = models.CharField(max_length=50)
+    host_password = models.CharField(max_length=50)
+
+    class Meta:
+        verbose_name = u"主机IP"
+        verbose_name_plural = u"主机IP"
