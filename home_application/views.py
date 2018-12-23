@@ -10,7 +10,7 @@ See the License for the specific language governing permissions and limitations 
 """
 
 from common.mymako import render_mako_context,render_json
-from home_application.models import HostInfo
+from home_application.models import HostInfo,CeleryHostInfo
 
 
 def home(request):
@@ -39,6 +39,13 @@ def host_list(request):
     """
     datas = HostInfo.objects.all()
     return render_mako_context(request, '/home_application/host_list.html',{ "datas": datas})
+
+def host_info(request):
+    """
+    主机列表
+    """
+    host_datas = CeleryHostInfo.objects.all()
+    return render_mako_context(request, '/home_application/host_info.html',{ "host_datas": host_datas})
 
 def record_host(request):
     '''
