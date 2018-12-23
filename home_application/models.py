@@ -41,6 +41,44 @@ class CeleryHostInfo(models.Model):
         verbose_name_plural = u"主机状态"
 
 '''
+虚拟机最新状态
+'''
+class CeleryVMsLatestInfo(models.Model):
+    vm_ip = models.CharField(max_length=32)
+    vm_name = models.CharField(max_length=32)
+    vm_cpu = models.IntegerField()
+    vm_memory = models.IntegerField()
+    vm_space = models.FloatField(max_length=32)
+    vm_osname = models.CharField(max_length=32)
+    vm_host = models.CharField(max_length=32)
+    vm_lastmodify = models.CharField(max_length=32)
+    vm_uptime = models.IntegerField()
+    vm_status = models.CharField(max_length=32)
+
+    class Meta:
+        verbose_name = u"虚机最新状态"
+        verbose_name_plural = u"虚机最新状态"
+
+'''
+虚拟机历史状态
+'''
+class CeleryVMsHistoryInfo(models.Model):
+    vm_ip = models.CharField(max_length=32)
+    vm_name = models.CharField(max_length=32)
+    vm_cpu = models.IntegerField()
+    vm_memory = models.IntegerField()
+    vm_space = models.FloatField(max_length=32)
+    vm_osname = models.CharField(max_length=32)
+    vm_host = models.CharField(max_length=32)
+    vm_lastmodify = models.CharField(max_length=32)
+    vm_uptime = models.IntegerField()
+    vm_status = models.CharField(max_length=32)
+
+    class Meta:
+        verbose_name = u"虚机历史状态"
+        verbose_name_plural = u"虚机历史状态"
+
+'''
 调试用的数据库,保存一些信息
 '''
 class DebugInfo(models.Model):

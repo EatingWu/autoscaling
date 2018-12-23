@@ -18,5 +18,6 @@ urlpatterns = patterns(
     (r'^contactus/$', 'contactus'),
     (r'^host_list/$', 'host_list'),
     (r'^host_info/$', 'host_info'),
+    (r'^vms_info/$', 'vms_info'),
     (r'^record_host/$', 'record_host'),
 )

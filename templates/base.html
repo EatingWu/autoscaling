@@ -52,7 +52,7 @@
                         <div class="navbar-collapse collapse" id="king-header2-navbar-collapse">
                             <ul class="nav navbar-nav navbar-left hidden-sm">
                                 <%
-                                    home = host_list = host_info = dev_guide = contactus = ''
+                                    home = host_list = host_info = vms_info = dev_guide = contactus = ''
                                     relative_path = APP_PATH
                                     if relative_path == SITE_URL or relative_path.startswith(SITE_URL + "?"):
                                       home = 'king-navbar-active'
@@ -64,6 +64,8 @@
                                       host_list = 'king-navbar-active'
                                     elif relative_path.startswith(SITE_URL + "host_info/"):
                                       host_info = 'king-navbar-active'
+                                    elif relative_path.startswith(SITE_URL + "vms_info/"):
+                                      vms_info = 'king-navbar-active'
                                 %>
                                 <li class="${home}">
                                     <a href="${SITE_URL}">
@@ -80,9 +82,9 @@
                                         <span>主机信息</span>
                                     </a>
                                 </li>
-                                <li>
-                                    <a href="javascript:void(0);">
-                                        <span>数据查询</span>
+                                <li class="vms_info">
+                                    <a href="${SITE_URL}vms_info/">
+                                        <span>虚机信息</span>
                                     </a>
                                 </li>
                                 <li>
