@@ -18,7 +18,7 @@ import datetime
 from celery import task
 from celery.schedules import crontab
 from celery.task import periodic_task
-from home_application.models import HostInfo,CeleryHostInfo
+from models import HostInfo,CeleryHostInfo
 from vmware import  get_host_info
 
 from common.log import logger
