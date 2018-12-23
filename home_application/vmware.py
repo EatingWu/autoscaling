@@ -79,7 +79,7 @@ def get_host_info(host_ip,host_name,host_password):
     server = VIServer()
     server.connect(host_ip, host_name, host_password)
     #print 'VC connect successful...'
-    DebugInfo.objects.create(text_info='VC connect successful...')
+    #DebugInfo.objects.create(text_info='VC connect successful...')
 
     for d, hname in server.get_hosts().items():
 
