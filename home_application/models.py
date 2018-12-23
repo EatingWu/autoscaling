@@ -44,4 +44,4 @@ class CeleryHostInfo(models.Model):
 调试用的数据库,保存一些信息
 '''
 class DebugInfo(models.Model):
-    text_info = models.CharField()
+    text_info = models.CharField(max_length=128)
