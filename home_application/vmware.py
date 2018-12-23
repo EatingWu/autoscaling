@@ -173,6 +173,7 @@ def get_vms_info(host_ip,host_name,host_password):
     server = VIServer()
     server.connect(host_ip, host_name, host_password)
     # print 'VC connect successful...'
+    DebugInfo.objects.create(text_info='VM connect successful...')
 
     vms_info = {}
 
