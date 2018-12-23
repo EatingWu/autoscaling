@@ -46,7 +46,6 @@ class CeleryHostInfo(models.Model):
 class CeleryVMsLatestInfo(models.Model):
     vm_name = models.CharField(max_length=32)
     vm_ip = models.CharField(max_length=32)
-    vm_name = models.CharField(max_length=32)
     vm_cpu = models.IntegerField()
     vm_memory = models.IntegerField()
     vm_space = models.FloatField(max_length=32)

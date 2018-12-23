@@ -97,9 +97,9 @@ def check_vms_status():
         vms_dict_datalist = get_vms_info(ip_value, name_value, password_value)
         #DebugInfo.objects.create(text_info=vms_dict_datalist)
         vms_dict_data_len = len(vms_dict_datalist)
-        DebugInfo.objects.create(text_info=vms_dict_data_len)
+        #DebugInfo.objects.create(text_info=vms_dict_data_len)
         for vm_info in range(0, vms_dict_data_len):
-            vm_name = CeleryVMsLatestInfo.objects.filter(vm_name=vms_dict_datalist[vm_info].get("name")).values("name")
+            vm_name = CeleryVMsLatestInfo.objects.filter(vm_name=vms_dict_datalist[vm_info].get("name")).values("vm_name")
             DebugInfo.objects.create(text_info=vm_name)
             if vm_name:
                 CeleryVMsLatestInfo.objects.filter(vm_name=vms_dict_datalist[vm_info].get("name")).update(
