@@ -18,6 +18,8 @@ from celery.schedules import crontab
 from celery.task import periodic_task
 
 from common.log import logger
+from models import HostInfo,CeleryHostInfo
+from vmware import get_host_info
 
 
 @task()
