@@ -109,7 +109,7 @@ def check_vms_status():
                                             vm_memory=(vms_dict_datalist[vm_info].get('config.hardware.memoryMB','')/1024),
                                             vm_space=((vms_dict_datalist[vm_info].get('summary.storage.committed',''))/(1024*1024*1024)),
                                             vm_osname=vms_dict_datalist[vm_info].get('guest.guestFullName',''),
-                                            vm_host=ip_value,
+                                            vm_host=vms_dict_datalist[vm_info].get('summary.runtime.host',''),
                                             vm_lastmodify=vms_dict_datalist[vm_info].get('summary.runtime.bootTime',''),
                                             vm_uptime=vms_dict_datalist[vm_info].get('summary.quickStats.uptimeSeconds',''),
                                             vm_status=vms_dict_datalist[vm_info].get('guestHeartbeatStatus',''))
@@ -121,7 +121,7 @@ def check_vms_status():
                                             vm_memory=(vms_dict_datalist[vm_info].get('config.hardware.memoryMB', '')/1024),
                                             vm_space=((vms_dict_datalist[vm_info].get('summary.storage.committed', ''))/(1024*1024*1024)),
                                             vm_osname=vms_dict_datalist[vm_info].get('guest.guestFullName', ''),
-                                            vm_host=ip_value,
+                                            vm_host=vms_dict_datalist[vm_info].get('summary.runtime.host', ''),
                                             vm_lastmodify=vms_dict_datalist[vm_info].get('summary.runtime.bootTime', ''),
                                             vm_uptime=vms_dict_datalist[vm_info].get('summary.quickStats.uptimeSeconds', ''),
                                             vm_status=vms_dict_datalist[vm_info].get('guestHeartbeatStatus', ''))
