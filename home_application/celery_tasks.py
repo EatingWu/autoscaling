@@ -99,12 +99,12 @@ def check_vms_status():
         vms_dict_data_len = len(vms_dict_datalist)
         #DebugInfo.objects.create(text_info=vms_dict_data_len)
         for vm_info in range(0, vms_dict_data_len):
-            vm_name = CeleryVMsLatestInfo.objects.filter(vm_name=vms_dict_datalist[vm_info].get("name")).values("vm_name")
+            vm_name = CeleryVMsLatestInfo.objects.filter(vm_number=vms_dict_datalist[vm_info].get("summary.vm")).values("vm_number")
             DebugInfo.objects.create(text_info=vm_name)
             if vm_name:
-                CeleryVMsLatestInfo.objects.filter(vm_name=vms_dict_datalist[vm_info].get("name")).update(
+                CeleryVMsLatestInfo.objects.filter(vm_name=vms_dict_datalist[vm_info].get("summary.vm")).update(
+                                            vm_name=vms_dict_datalist[vm_info].get("name"),
                                             vm_ip=vms_dict_datalist[vm_info].get('guest.ipAddress',''),
-                                            vm_name=vms_dict_datalist[vm_info].get('name',''),
                                             vm_cpu=vms_dict_datalist[vm_info].get('config.hardware.numCPU',''),
                                             vm_memory=vms_dict_datalist[vm_info].get('config.hardware.memoryMB',''),
                                             vm_space=(vms_dict_datalist[vm_info].get('summary.storage.committed',''))/(1024*1024),
@@ -114,7 +114,8 @@ def check_vms_status():
                                             vm_uptime=vms_dict_datalist[vm_info].get('summary.quickStats.uptimeSeconds',''),
                                             vm_status=vms_dict_datalist[vm_info].get('guestHeartbeatStatus',''))
             else:
-                CeleryVMsLatestInfo.objects.create(vm_name=vms_dict_datalist[vm_info].get("name"),
+                CeleryVMsLatestInfo.objects.create(vm_number=vms_dict_datalist[vm_info].get("summary.vm"),
+                                            vm_name=vms_dict_datalist[vm_info].get("name",""),
                                             vm_ip=vms_dict_datalist[vm_info].get('guest.ipAddress', ''),
                                             vm_cpu=vms_dict_datalist[vm_info].get('config.hardware.numCPU', ''),
                                             vm_memory=vms_dict_datalist[vm_info].get('config.hardware.memoryMB', ''),
