@@ -126,7 +126,7 @@ def check_vms_status():
                                             vm_osname=vms_dict_datalist[vm_info].get('guest.guestFullName', ''),
                                             vm_host=vms_dict_datalist[vm_info].get('summary.runtime.host', ''),
                                             vm_lastmodify=vms_dict_datalist[vm_info].get('summary.runtime.bootTime', ''),
-                                            vm_uptime=vms_dict_datalist[vm_info].get('summary.quickStats.uptimeSeconds', ''),
+                                            vm_uptime=(vms_dict_datalist[vm_info].get('summary.quickStats.uptimeSeconds', '')/(60*60*24)),
                                             vm_status=vms_dict_datalist[vm_info].get('guestHeartbeatStatus', ''))
 
 @periodic_task(run_every=crontab(minute='*/1', hour='*', day_of_week="*"))
