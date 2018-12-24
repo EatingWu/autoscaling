@@ -114,7 +114,7 @@ def check_vms_status():
                                             vm_uptime=vms_dict_datalist[vm_info].get('summary.quickStats.uptimeSeconds',''),
                                             vm_status=vms_dict_datalist[vm_info].get('guestHeartbeatStatus',''))
             else:
-                CeleryVMsLatestInfo.objects.create(vm_number=vms_dict_datalist[vm_info].get("summary.vm"),
+                CeleryVMsLatestInfo.objects.create(vm_number=vms_dict_datalist[vm_info].get("summary.vm",""),
                                             vm_name=vms_dict_datalist[vm_info].get("name",""),
                                             vm_ip=vms_dict_datalist[vm_info].get('guest.ipAddress', ''),
                                             vm_cpu=vms_dict_datalist[vm_info].get('config.hardware.numCPU', ''),
