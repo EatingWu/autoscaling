@@ -158,7 +158,7 @@ def get_host_info(host_ip,host_name,host_password):
         HostMemoryUsagePercent = round((HostMemoryUsage * 100) / HostTotalMemory,2)
         HostCpuUsagePercent = round(((HostCpuUsage * 100) / HostCpuTotal),2)
 
-        hosts_dict = {'hostname': hname.lower(), 'hoststatus': HostStatus, 'hostmemoryusage': HostMemoryUsage,
+        hosts_dict = {'hostnumber':d, 'hostname': hname.lower(), 'hoststatus': HostStatus, 'hostmemoryusage': HostMemoryUsage,
                       'hostcpuusage': HostCpuUsage, 'hosttotalmemory': HostTotalMemory, 'hostcputotal': HostCpuTotal,
                       'hostmemoryusagepercent': HostMemoryUsagePercent, 'hostcpuusagepercent': HostCpuUsagePercent,
                       'hostrunningvms': HostRunningVMS, 'hoststoppedvms': HostStoppedVMS, 'hosttotalvms': HostTotalVMS,

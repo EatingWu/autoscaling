@@ -70,7 +70,9 @@ def check_host_status():
             host_name = CeleryHostInfo.objects.filter(host_name=hosts_dict_datalist[host_info].get("hostname")).values("host_name")
             if host_name:
                 #print "exist"
-                CeleryHostInfo.objects.filter(host_name=hosts_dict_datalist[host_info].get('hostname')).update(host_ip=ip_value,
+                CeleryHostInfo.objects.filter(host_name=hosts_dict_datalist[host_info].get('hostname')).update(
+                                              host_number=hosts_dict_datalist[host_info].get('hostnumber'),
+                                              host_ip=ip_value,
                                               cpu_usage=hosts_dict_datalist[host_info].get('hostcpuusagepercent'),
                                               mem_usage=hosts_dict_datalist[host_info].get('hostmemoryusagepercent'),
                                               running_vms=hosts_dict_datalist[host_info].get('hostrunningvms'),
@@ -80,6 +82,7 @@ def check_host_status():
             else:
                 #print "new"
                 CeleryHostInfo.objects.create(host_ip=ip_value, host_name=hosts_dict_datalist[host_info].get('hostname'),
+                                              host_number=hosts_dict_datalist[host_info].get('hostnumber'),
                                               cpu_usage=hosts_dict_datalist[host_info].get('hostcpuusagepercent'),
                                               mem_usage=hosts_dict_datalist[host_info].get('hostmemoryusagepercent'),
                                               running_vms=hosts_dict_datalist[host_info].get('hostrunningvms'),
@@ -100,7 +103,7 @@ def check_vms_status():
         #DebugInfo.objects.create(text_info=vms_dict_data_len)
         for vm_info in range(0, vms_dict_data_len):
             vm_number = CeleryVMsLatestInfo.objects.filter(vm_number=vms_dict_datalist[vm_info].get("summary.vm")).values("vm_number")
-            DebugInfo.objects.create(text_info=vm_number)
+            #DebugInfo.objects.create(text_info=vm_number)
             if vm_number:
                 CeleryVMsLatestInfo.objects.filter(vm_number=vms_dict_datalist[vm_info].get("summary.vm")).update(
                                             vm_name=vms_dict_datalist[vm_info].get("name"),

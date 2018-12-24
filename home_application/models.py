@@ -27,6 +27,7 @@ class HostInfo(models.Model):
 主机状态
 '''
 class CeleryHostInfo(models.Model):
+    host_number = models.CharField(max_length=32)
     host_ip = models.CharField(max_length=32)
     host_name = models.CharField(max_length=32)
     cpu_usage = models.FloatField(max_length=32)
