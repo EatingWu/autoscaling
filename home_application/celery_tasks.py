@@ -99,10 +99,10 @@ def check_vms_status():
         vms_dict_data_len = len(vms_dict_datalist)
         #DebugInfo.objects.create(text_info=vms_dict_data_len)
         for vm_info in range(0, vms_dict_data_len):
-            vm_name = CeleryVMsLatestInfo.objects.filter(vm_number=vms_dict_datalist[vm_info].get("summary.vm")).values("vm_number")
-            DebugInfo.objects.create(text_info=vm_name)
-            if vm_name:
-                CeleryVMsLatestInfo.objects.filter(vm_name=vms_dict_datalist[vm_info].get("summary.vm")).update(
+            vm_number = CeleryVMsLatestInfo.objects.filter(vm_number=vms_dict_datalist[vm_info].get("summary.vm")).values("vm_number")
+            DebugInfo.objects.create(text_info=vm_number)
+            if vm_number:
+                CeleryVMsLatestInfo.objects.filter(vm_number=vms_dict_datalist[vm_info].get("summary.vm")).update(
                                             vm_name=vms_dict_datalist[vm_info].get("name"),
                                             vm_ip=vms_dict_datalist[vm_info].get('guest.ipAddress',''),
                                             vm_cpu=vms_dict_datalist[vm_info].get('config.hardware.numCPU',''),
