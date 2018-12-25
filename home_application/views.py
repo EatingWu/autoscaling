@@ -103,7 +103,7 @@ def reset_vms_mem(request):
     reset_mem = int(request.POST.get('resetmem_mem', ''))
     # print type(reset_cpu)
     # print reset_hostip,reset_vmip,reset_cpu
-    '''host_name_value = HostInfo.objects.filter(host_ip=reset_hostip).values('host_name')[0].values()[0]
+    host_name_value = HostInfo.objects.filter(host_ip=reset_hostip).values('host_name')[0].values()[0]
     host_password_value = HostInfo.objects.filter(host_ip=reset_hostip).values('host_password')[0].values()[0]
     vm_name_value = CeleryVMsLatestInfo.objects.filter(vm_number=reset_vmnum).values('vm_name')[0].values()[0]
     # print reset_hostip, reset_vmnum, reset_cpu, host_name_value, host_password_value, vm_name_value
@@ -112,5 +112,4 @@ def reset_vms_mem(request):
     if res:
         return render_json({'result': True})
     else:
-        return render_json({'result': False})'''
-    return render_json({'result': True})
+        return render_json({'result': False})
