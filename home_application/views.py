@@ -11,7 +11,7 @@ See the License for the specific language governing permissions and limitations 
 
 from common.mymako import render_mako_context,render_json
 from home_application.models import HostInfo,CeleryHostInfo,CeleryVMsLatestInfo
-
+from vmware import reset_config
 
 def home(request):
     """
@@ -54,6 +54,12 @@ def vms_info(request):
     vms_datas = CeleryVMsLatestInfo.objects.all()
     return render_mako_context(request, '/home_application/vms_info.html',{ "vms_datas": vms_datas})
 
+def portrait_scaling(request):
+    """
+    纵向扩缩
+    """
+    return render_mako_context(request, '/home_application/portrait_scaling.html')
+
 def record_host(request):
     '''
     录入主机
@@ -73,3 +79,23 @@ def record_host(request):
             return render_json({'result': 2})
     else:
         return render_json({'result': 3})
+
+def reset_vms_cpu(request):
+    reset_hostip = request.POST.get('reset_hostip', '')
+    reset_vmnum = request.POST.get('reset_vmnum', '')
+    reset_cpu = int(request.POST.get('reset_cpu', ''))
+    #print type(reset_cpu)
+    #print reset_hostip,reset_vmip,reset_cpu
+    host_name_value = HostInfo.objects.filter(host_ip=reset_hostip).values('host_name')[0].values()[0]
+    host_password_value = HostInfo.objects.filter(host_ip=reset_hostip).values('host_password')[0].values()[0]
+    vm_name_value = CeleryVMsLatestInfo.objects.filter(vm_number=reset_vmnum).values('vm_name')[0].values()[0]
+    #print reset_hostip, reset_vmnum, reset_cpu, host_name_value, host_password_value, vm_name_value
+    res = reset_config(host_ip=reset_hostip, host_name=host_name_value, host_password=host_password_value, vm_type='cpu',
+                 vm_name=vm_name_value, vm_reset=reset_cpu)
+    if res:
+        return render_json({'result': True})
+    else:
+        return render_json({'result': False})
+
+def reset_vms_mem(request):
+    return render_json({'result': True})

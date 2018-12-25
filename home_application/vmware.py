@@ -240,3 +240,50 @@ def get_vms_info(host_ip,host_name,host_password):
 
     server.disconnect()
     return vms_dict_data
+
+'''
+调整虚机配置函数，先判断调整的类型，然后设置相应的调整值，最后输出调整结果
+可调整类型：CPU核心数，内存大小（MB)
+'''
+def set_vm_reservation(server,types,vm_name,reservation,level):
+    vm_mor = server.get_vm_by_name(vm_name)
+    request = VI.ReconfigVM_TaskRequestMsg()
+    _this = request.new__this(vm_mor._mor)
+    _this.set_attribute_type(vm_mor._mor.get_attribute_type())
+    request.set_element__this(_this)
+    spec = request.new_spec()
+
+    if types == 'cpu':
+        spec.set_element_numCPUs(reservation)
+    elif types == 'memory':
+        spec.set_element_memoryMB(reservation)
+
+    request.set_element_spec(spec)
+    ret = server._proxy.ReconfigVM_Task(request)._returnval
+    config_result = False
+    task = VITask(ret, server)
+    status = task.wait_for_state([task.STATE_SUCCESS, task.STATE_ERROR])
+    if status == task.STATE_SUCCESS:
+        ret = "VM <" + vm_name + "> successfully reconfigured"
+        config_result = True
+    elif status == task.STATE_ERROR:
+        #print "Error reconfiguring vm <" + vm_name + ">: %s" % task.get_error_message()
+        #print task.get_info()
+        #print task.get_result()
+        #print task.get_state()
+        #print task.info
+        ret = "Error reconfiguring vm <" + vm_name + ">: %s" % task.get_error_message()
+        config_result = False
+    return config_result
+
+
+'''
+types:可调整类型memory内存、CPU核心数
+reservation：调整值，内存为MB，CPU为数量
+'''
+def reset_config(host_ip,host_name,host_password,vm_type,vm_name,vm_reset):
+    server = VIServer()
+    server.connect(host_ip,host_name,host_password)
+    result = set_vm_reservation(server=server,types=vm_type,vm_name=vm_name,reservation=vm_reset,level='normal')
+    #print result
+    return result

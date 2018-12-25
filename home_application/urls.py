@@ -19,5 +19,8 @@ urlpatterns = patterns(
     (r'^host_list/$', 'host_list'),
     (r'^host_info/$', 'host_info'),
     (r'^vms_info/$', 'vms_info'),
+    (r'^portrait_scaling/$', 'portrait_scaling'),
     (r'^record_host/$', 'record_host'),
+    (r'^reset_vms_cpu/$', 'reset_vms_cpu'),
+    (r'^reset_vms_mem/$', 'reset_vms_mem'),
 )
