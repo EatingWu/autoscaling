@@ -127,11 +127,14 @@
             'resetmem_vmnum': $("#vm-num-mem").val(),
             'resetmem_mem': $("#mem-scaling").val()
         },function(res){
-            if(res.result){
+            if(res.result == 1){
                 alert("成功修改内存！请刷新页面！");
             }
-            else{
+            else if(res.result == 2){
                 alert("修改失败！");
+            }
+            else{
+            	alert("请先关闭虚拟机！")
             }
         },'json');
     }
