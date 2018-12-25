@@ -107,11 +107,14 @@
             'resetcpu_vmnum': $("#vm-num-cpu").val(),
             'resetcpu_cpu': $("#cpu-scaling").val()
         },function(res){
-            if(res.result){
+            if(res.result == 1){
                 alert("成功修改CPU核心数！请刷新页面！");
             }
-            else{
+            else if(res.result == 2){
                 alert("修改失败！");
+            }
+            else{
+            	alert("请先关闭虚拟机！")
             }
         },'json');
     }
