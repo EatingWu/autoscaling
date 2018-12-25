@@ -66,12 +66,12 @@
                     <div class="form-group clearfix ">
                         <label class="col-sm-3 control-label bk-lh30 pt0">VC：</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control bk-valign-top" id="" placeholder="请输入VC的IP地址"> </div>
+                            <input type="text" class="form-control bk-valign-top" id="vc-ip-mem" placeholder="请输入VC的IP地址"> </div>
                     </div>
                     <div class="form-group clearfix ">
                         <label class="col-sm-3 control-label bk-lh30 pt0">虚机：</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control bk-valign-top" id="" placeholder="请输入要操作的虚机编号"> </div>
+                            <input type="text" class="form-control bk-valign-top" id="vm-num-mem" placeholder="请输入要操作的虚机编号"> </div>
                     </div>
                     <div class="form-group clearfix ">
                         <label class="col-sm-3 control-label bk-lh30 pt0">内存(G)：</label>
@@ -103,12 +103,12 @@
 <script type="text/javascript">
     function reset_vms_cpu(button) {
         $.post(site_url + 'reset_vms_cpu/',{
-            'reset_hostip': $("#vc-ip-cpu").val(),
-            'reset_vmnum': $("#vm-num-cpu").val(),
-            'reset_cpu': $("#cpu-scaling").val()
+            'resetcpu_hostip': $("#vc-ip-cpu").val(),
+            'resetcpu_vmnum': $("#vm-num-cpu").val(),
+            'resetcpu_cpu': $("#cpu-scaling").val()
         },function(res){
             if(res.result){
-                alert("成功修改！请刷新页面！");
+                alert("成功修改CPU核心数！请刷新页面！");
             }
             else{
                 alert("修改失败！");
@@ -120,10 +120,12 @@
 <script type="text/javascript">
     function reset_vms_mem(button) {
         $.post(site_url + 'reset_vms_cpu/',{
-
+            'resetmem_hostip': $("#vc-ip-mem").val(),
+            'resetmem_vmnum': $("#vm-num-mem").val(),
+            'resetmem_mem': $("#mem-scaling").val()
         },function(res){
             if(res.result){
-                alert("成功修改！请刷新页面！");
+                alert("成功修改内存！请刷新页面！");
             }
             else{
                 alert("修改失败！");
