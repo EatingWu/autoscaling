@@ -50,11 +50,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="celery_tasks.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="celery_tasks.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/home_application/celery_tasks.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="157">
-              <caret line="139" column="9" lean-forward="true" selection-start-line="139" selection-start-column="9" selection-end-line="139" selection-end-column="67" />
+            <state relative-caret-position="195">
+              <caret line="141" column="65" selection-start-line="141" selection-start-column="65" selection-end-line="141" selection-end-column="65" />
               <folding>
                 <element signature="e#848#863#0" expanded="true" />
               </folding>
@@ -62,11 +62,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="vmware.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="vmware.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/home_application/vmware.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="350">
-              <caret line="278" column="55" selection-start-line="278" selection-start-column="55" selection-end-line="278" selection-end-column="55" />
+            <state relative-caret-position="179">
+              <caret line="278" column="9" selection-start-line="278" selection-start-column="9" selection-end-line="278" selection-end-column="9" />
               <folding>
                 <element signature="e#25#56#0" expanded="true" />
               </folding>
@@ -147,8 +147,8 @@
         <option value="$PROJECT_DIR$/home_application/models.py" />
         <option value="$PROJECT_DIR$/templates/home_application/datastore_info.html" />
         <option value="$PROJECT_DIR$/home_application/views.py" />
-        <option value="$PROJECT_DIR$/home_application/celery_tasks.py" />
         <option value="$PROJECT_DIR$/home_application/vmware.py" />
+        <option value="$PROJECT_DIR$/home_application/celery_tasks.py" />
       </list>
     </option>
   </component>
@@ -555,22 +555,22 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/home_application/celery_tasks.py">
+    <entry file="file://$PROJECT_DIR$/home_application/vmware.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="157">
-          <caret line="139" column="9" lean-forward="true" selection-start-line="139" selection-start-column="9" selection-end-line="139" selection-end-column="67" />
+        <state relative-caret-position="179">
+          <caret line="278" column="9" selection-start-line="278" selection-start-column="9" selection-end-line="278" selection-end-column="9" />
           <folding>
-            <element signature="e#848#863#0" expanded="true" />
+            <element signature="e#25#56#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/home_application/vmware.py">
+    <entry file="file://$PROJECT_DIR$/home_application/celery_tasks.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="350">
-          <caret line="278" column="55" selection-start-line="278" selection-start-column="55" selection-end-line="278" selection-end-column="55" />
+        <state relative-caret-position="195">
+          <caret line="141" column="65" selection-start-line="141" selection-start-column="65" selection-end-line="141" selection-end-column="65" />
           <folding>
-            <element signature="e#25#56#0" expanded="true" />
+            <element signature="e#848#863#0" expanded="true" />
           </folding>
         </state>
       </provider>

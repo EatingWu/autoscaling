@@ -245,7 +245,7 @@ def get_vms_info(host_ip,host_name,host_password):
 获取存储信息
 '''
 def get_datastore_info(host_ip,host_name,host_password):
-    stats_data = []
+    stats_data_list = []
 
     s = VIServer()
     s.connect(host_ip, host_name, host_password)
@@ -276,13 +276,13 @@ def get_datastore_info(host_ip,host_name,host_password):
         volumes_dict = {'volumes': dsname.lower(), 'FreeSpace': DatastoreFreespace, 'UsedSpace': UsedSpace,
                         'capacity': DatastoreCapacity, 'usagePercent': DatastoreUsagePercent}
         #pprint.pprint(volumes_dict)
-        DebugInfo.objects.create(text_info=volumes_dict)
-        stats_data.append(volumes_dict)
+        #DebugInfo.objects.create(text_info=volumes_dict)
+        stats_data_list.append(volumes_dict)
 
     #print 'mVC disconnect successful...'
 
     s.disconnect()
-    return stats_data
+    return stats_data_list
 
 '''
 调整虚机配置函数，先判断调整的类型，然后设置相应的调整值，最后输出调整结果
