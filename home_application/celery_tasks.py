@@ -137,11 +137,11 @@ def check_datastore_status():
         name_value = HostInfo.objects.filter(id=host_info_id).values('host_name')[0].get('host_name')
         password_value = HostInfo.objects.filter(id=host_info_id).values('host_password')[0].get('host_password')
         vms_datastore_datalist = get_datastore_info(ip_value, name_value, password_value)
-        #DebugInfo.objects.create(text_info=vms_datastore_datalist)
+        DebugInfo.objects.create(text_info=vms_datastore_datalist)
         vms_datastore_data_len = len(vms_datastore_datalist)
         for datastore_info in range(0, vms_datastore_data_len):
             datastore_name = DatastoreInfo.objects.filter(dt_volumes=vms_datastore_datalist[datastore_info].get("volumes")).values("dt_volumes")
-            DebugInfo.objects.create(vms_datastore_datalist[datastore_info].get("volumes"))
+            #DebugInfo.objects.create(vms_datastore_datalist[datastore_info].get("volumes"))
             if datastore_name:
                 DatastoreInfo.objects.filter(
                     dt_volumes=vms_datastore_datalist[datastore_info].get("volumes")).update(
