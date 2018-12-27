@@ -276,6 +276,7 @@ def get_datastore_info(host_ip,host_name,host_password):
         volumes_dict = {'volumes': dsname.lower(), 'FreeSpace': DatastoreFreespace, 'UsedSpace': UsedSpace,
                         'capacity': DatastoreCapacity, 'usagePercent': DatastoreUsagePercent}
         #pprint.pprint(volumes_dict)
+        DebugInfo.objects.create(text_info=volumes_dict)
         stats_data.append(volumes_dict)
 
     #print 'mVC disconnect successful...'
