@@ -141,7 +141,7 @@ def check_datastore_status():
         vms_datastore_data_len = len(vms_datastore_datalist)
         #DebugInfo.objects.create(text_info=vms_datastore_data_len)
         for datastore_info in range(0, vms_datastore_data_len):
-            #DebugInfo.objects.create(text_info=vms_datastore_datalist[datastore_info].get("volumes"))
+            DebugInfo.objects.create(text_info=vms_datastore_datalist[datastore_info].get("volumes"))
             datastore_name = DatastoreInfo.objects.filter(dt_volumes=vms_datastore_datalist[datastore_info].get("volumes")).values("dt_volumes")
             #DebugInfo.objects.create(vms_datastore_datalist[datastore_info].get("volumes"))
             if datastore_name:
@@ -155,7 +155,7 @@ def check_datastore_status():
             else:
                 DatastoreInfo.objects.create(
                     dt_volumes=vms_datastore_datalist[datastore_info].get("volumes",""),
-                    dt_freespace=vms_datastore_datalist[datastore_info].get("FreeSpace","",
+                    dt_freespace=vms_datastore_datalist[datastore_info].get("FreeSpace",""),
                     dt_usedspace=vms_datastore_datalist[datastore_info].get("UsedSpace",""),
                     dt_capacity=vms_datastore_datalist[datastore_info].get("capacity",""),
                     dt_usagepercent=vms_datastore_datalist[datastore_info].get("usagePercent","")

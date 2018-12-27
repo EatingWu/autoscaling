@@ -44,7 +44,7 @@ def datastore_info(request):
     """
     主机列表
     """
-    datastore_datas = DatastoreInfo.objects.all()
+    datastore_datas = DatastoreInfo.objects.all().order_by("dt_volumes")
     return render_mako_context(request, '/home_application/datastore_info.html',{ "datastore_datas": datastore_datas})
 
 def host_info(request):
