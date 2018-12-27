@@ -54,7 +54,7 @@
         <entry file="file://$PROJECT_DIR$/home_application/celery_tasks.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="271">
-              <caret line="172" column="40" selection-start-line="172" selection-start-column="40" selection-end-line="172" selection-end-column="40" />
+              <caret line="139" column="65" selection-start-line="139" selection-start-column="65" selection-end-line="139" selection-end-column="65" />
               <folding>
                 <element signature="e#848#863#0" expanded="true" />
               </folding>
@@ -65,8 +65,8 @@
       <file leaf-file-name="vmware.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/home_application/vmware.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="233">
-              <caret line="276" column="68" selection-start-line="276" selection-start-column="56" selection-end-line="276" selection-end-column="68" />
+            <state relative-caret-position="198">
+              <caret line="279" column="15" selection-start-line="279" selection-start-column="15" selection-end-line="279" selection-end-column="15" />
               <folding>
                 <element signature="e#25#56#0" expanded="true" />
               </folding>
@@ -557,8 +557,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/home_application/vmware.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="233">
-          <caret line="276" column="68" selection-start-line="276" selection-start-column="56" selection-end-line="276" selection-end-column="68" />
+        <state relative-caret-position="198">
+          <caret line="279" column="15" selection-start-line="279" selection-start-column="15" selection-end-line="279" selection-end-column="15" />
           <folding>
             <element signature="e#25#56#0" expanded="true" />
           </folding>
@@ -568,7 +568,7 @@
     <entry file="file://$PROJECT_DIR$/home_application/celery_tasks.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="271">
-          <caret line="172" column="40" selection-start-line="172" selection-start-column="40" selection-end-line="172" selection-end-column="40" />
+          <caret line="139" column="65" selection-start-line="139" selection-start-column="65" selection-end-line="139" selection-end-column="65" />
           <folding>
             <element signature="e#848#863#0" expanded="true" />
           </folding>
