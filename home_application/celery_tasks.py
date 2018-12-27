@@ -18,8 +18,8 @@ import datetime
 from celery import task
 from celery.schedules import crontab
 from celery.task import periodic_task
-from models import HostInfo,CeleryHostInfo,DebugInfo,CeleryVMsLatestInfo
-from vmware import  get_host_info,get_vms_info
+from models import HostInfo,CeleryHostInfo,DebugInfo,CeleryVMsLatestInfo,DatastoreInfo
+from vmware import  get_host_info,get_vms_info,get_datastore_info
 
 from common.log import logger
 
@@ -129,6 +129,37 @@ def check_vms_status():
                                             vm_uptime=(vms_dict_datalist[vm_info].get('summary.quickStats.uptimeSeconds', '')/(60*60*24)),
                                             vm_status=vms_dict_datalist[vm_info].get('guestHeartbeatStatus', ''))
 
+@task()
+def check_datastore_status():
+    host_info_len = HostInfo.objects.count()
+    for host_info_id in range(1, host_info_len + 1):
+        ip_value = HostInfo.objects.filter(id=host_info_id).values('host_ip')[0].get('host_ip')
+        name_value = HostInfo.objects.filter(id=host_info_id).values('host_name')[0].get('host_name')
+        password_value = HostInfo.objects.filter(id=host_info_id).values('host_password')[0].get('host_password')
+        vms_datastore_datalist = get_datastore_info(ip_value, name_value, password_value)
+        vms_datastore_data_len = len(vms_datastore_datalist)
+        for datastore_info in range(0, vms_datastore_data_len):
+            datastore_name = DatastoreInfo.objects.filter(
+                dt_volumes=vms_datastore_datalist[datastore_info].get("volumes")).values("dt_volumes")
+            if datastore_name:
+                DatastoreInfo.objects.filter(
+                    dt_volumes=vms_datastore_datalist[datastore_info].get("volumes")).update(
+                    dt_freespace=vms_datastore_datalist[datastore_info].get("FreeSpace"),
+                    dt_usedspace=vms_datastore_datalist[datastore_info].get("UsedSpace"),
+                    dt_capacity=vms_datastore_datalist[datastore_info].get("capacity"),
+                    dt_usagepercent=vms_datastore_datalist[datastore_info].get("usagePercent")
+                )
+            else:
+                DatastoreInfo.objects.create(
+                    dt_volumes=vms_datastore_datalist[datastore_info].get("volumes"),
+                    dt_freespace=vms_datastore_datalist[datastore_info].get("FreeSpace"),
+                    dt_usedspace=vms_datastore_datalist[datastore_info].get("UsedSpace"),
+                    dt_capacity=vms_datastore_datalist[datastore_info].get("capacity"),
+                    dt_usagepercent=vms_datastore_datalist[datastore_info].get("usagePercent")
+                )
+
+
+
 @periodic_task(run_every=crontab(minute='*/1', hour='*', day_of_week="*"))
 def get_time():
     """
@@ -139,5 +170,6 @@ def get_time():
     """
     check_host_status.apply_async()
     check_vms_status.apply_async()
+    check_datastore_status.apply_async()
     now = datetime.datetime.now()
     logger.error(u"celery 周期任务调用成功，当前时间：{}".format(now))

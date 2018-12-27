@@ -42,6 +42,20 @@ class CeleryHostInfo(models.Model):
         verbose_name_plural = u"主机状态"
 
 '''
+存储池信息
+'''
+class DatastoreInfo(models.Model):
+    dt_freespace = models.FloatField(max_length=32)
+    dt_usedspace = models.FloatField(max_length=32)
+    dt_capacity = models.FloatField(max_length=32)
+    dt_usagepercent = models.FloatField(max_length=32)
+    dt_volumes = models.CharField(max_length=32)
+
+    class Meta:
+        verbose_name = u"资源池信息"
+        verbose_name_plural = u"资源池信息"
+
+'''
 虚拟机最新状态
 '''
 class CeleryVMsLatestInfo(models.Model):

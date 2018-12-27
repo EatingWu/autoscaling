@@ -10,7 +10,7 @@ See the License for the specific language governing permissions and limitations 
 """
 
 from common.mymako import render_mako_context,render_json
-from home_application.models import HostInfo,CeleryHostInfo,CeleryVMsLatestInfo
+from home_application.models import HostInfo,CeleryHostInfo,CeleryVMsLatestInfo,DatastoreInfo
 from vmware import reset_config
 
 def home(request):
@@ -39,6 +39,13 @@ def host_list(request):
     """
     datas = HostInfo.objects.all()
     return render_mako_context(request, '/home_application/host_list.html',{ "datas": datas})
+
+def datastore_info(request):
+    """
+    主机列表
+    """
+    datastore_datas = DatastoreInfo.objects.all()
+    return render_mako_context(request, '/home_application/datastore_info.html',{ "datastore_datas": datastore_datas})
 
 def host_info(request):
     """

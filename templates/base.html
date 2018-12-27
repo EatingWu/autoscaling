@@ -52,7 +52,7 @@
                         <div class="navbar-collapse collapse" id="king-header2-navbar-collapse">
                             <ul class="nav navbar-nav navbar-left hidden-sm">
                                 <%
-                                    home = host_list = host_info = vms_info = landscape_scaling = portrait_scaling = dev_guide = contactus = ''
+                                    home = host_list = host_info = vms_info = datastore_info = landscape_scaling = portrait_scaling = dev_guide = contactus = ''
                                     relative_path = APP_PATH
                                     if relative_path == SITE_URL or relative_path.startswith(SITE_URL + "?"):
                                       home = 'king-navbar-active'
@@ -82,6 +82,11 @@
                                 <li class="host_info">
                                     <a href="${SITE_URL}host_info/">
                                         <span>主机信息</span>
+                                    </a>
+                                </li>
+                                <li class="datastore_info">
+                                    <a href="${SITE_URL}datastore_info/">
+                                        <span>存储信息</span>
                                     </a>
                                 </li>
                                 <li class="vms_info">

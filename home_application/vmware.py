@@ -242,6 +242,47 @@ def get_vms_info(host_ip,host_name,host_password):
     return vms_dict_data
 
 '''
+获取存储信息
+'''
+def get_datastore_info(host_ip,host_name,host_password):
+    stats = dict()
+
+    s = VIServer()
+    s.connect(host_ip, host_name, host_password)
+    print 'VC connect successful...'
+
+    for ds, dsname in s.get_datastores().items():
+        DatastoreCapacity = 0
+        DatastoreFreespace = 0
+        DatastoreUsagePercent = 0
+
+        props = s._retrieve_properties_traversal(property_names=['name', 'summary.capacity', 'summary.freeSpace'],
+                                                 from_node=ds, obj_type="Datastore")
+        # print props
+        for prop_set in props:
+            for prop in prop_set.PropSet:
+                if prop.Name == "summary.capacity":
+                    DatastoreCapacity = round((prop.Val / 1073741824),2)
+                elif prop.Name == "summary.freeSpace":
+                    DatastoreFreespace = round((prop.Val / 1073741824),2)
+
+        UsedSpace = round((DatastoreCapacity - DatastoreFreespace),2)
+        DatastoreUsagePercent = round((((DatastoreCapacity - DatastoreFreespace) * 100) / DatastoreCapacity),2)
+
+        metricnameZoneDatastoreCapacity = dsname.lower() + 'Capacity'
+        metricnameZoneDatastoreFreespace = dsname.lower() + 'FreeSpace'
+        metricnameZoneDatastoreUsagePercent = dsname.lower() + 'UsagePercent'
+
+        volumes_dict = {'volumes': dsname.lower(), 'FreeSpace': DatastoreFreespace, 'UsedSpace': UsedSpace,
+                        'capacity': DatastoreCapacity, 'usagePercent': DatastoreUsagePercent}
+        #pprint.pprint(volumes_dict)
+
+    #print 'mVC disconnect successful...'
+
+    s.disconnect()
+    return volumes_dict
+
+'''
 调整虚机配置函数，先判断调整的类型，然后设置相应的调整值，最后输出调整结果
 可调整类型：CPU核心数，内存大小（MB)
 '''
