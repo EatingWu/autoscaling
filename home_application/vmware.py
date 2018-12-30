@@ -357,7 +357,7 @@ def get_disk_size(vm_obj):
 调整存储配置函数
 '''
 def set_vm_datastore(host_ip, host_name, host_password, vm_name, reservation):
-    DebugInfo.objects.create(text_info=host_ip+host_name+host_password+vm_name+reservation)
+    #DebugInfo.objects.create(text_info=host_ip+host_name+host_password+vm_name+reservation)
     server = VIServer()
     server.connect(host_ip, host_name, host_password)
     vm_mor = server.get_vm_by_name(vm_name)
