@@ -133,8 +133,8 @@ def reset_vms_data(request):
     reset_hostip = request.POST.get('resetdata_hostip', '')
     reset_vmnum = request.POST.get('resetdata_vmnum', '')
     reset_data = int(request.POST.get('resetdata', ''))
-    '''DebugInfo.objects.create(text_info=reset_hostip + reset_vmnum + reset_data)
-    host_name_value = HostInfo.objects.filter(host_ip=reset_hostip).values('host_name')[0].values()[0]
+    DebugInfo.objects.create(text_info=reset_hostip + reset_vmnum + reset_data)
+    '''host_name_value = HostInfo.objects.filter(host_ip=reset_hostip).values('host_name')[0].values()[0]
     host_password_value = HostInfo.objects.filter(host_ip=reset_hostip).values('host_password')[0].values()[0]
     vm_name_value = CeleryVMsLatestInfo.objects.filter(vm_number=reset_vmnum).values('vm_name')[0].values()[0]
     vm_status = CeleryVMsLatestInfo.objects.filter(vm_number=reset_vmnum).values('vm_status')[0].values()[0]
