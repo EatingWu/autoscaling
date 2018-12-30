@@ -133,15 +133,15 @@ def reset_vms_data(request):
     reset_hostip = request.POST.get('resetdata_hostip', '')
     reset_vmnum = request.POST.get('resetdata_vmnum', '')
     reset_data = int(request.POST.get('resetdata', ''))
-    DebugInfo.objects.create(text_info=reset_hostip)
-    DebugInfo.objects.create(text_info=reset_vmnum)
-    DebugInfo.objects.create(text_info=reset_data)
-    '''host_name_value = HostInfo.objects.filter(host_ip=reset_hostip).values('host_name')[0].values()[0]
+    host_name_value = HostInfo.objects.filter(host_ip=reset_hostip).values('host_name')[0].values()[0]
     host_password_value = HostInfo.objects.filter(host_ip=reset_hostip).values('host_password')[0].values()[0]
     vm_name_value = CeleryVMsLatestInfo.objects.filter(vm_number=reset_vmnum).values('vm_name')[0].values()[0]
     vm_status = CeleryVMsLatestInfo.objects.filter(vm_number=reset_vmnum).values('vm_status')[0].values()[0]
     #print host_name_value,host_password_value,vm_name_value,vm_status
-    DebugInfo.objects.create(text_info=host_name_value + host_password_value + vm_name_value + vm_status)
+    DebugInfo.objects.create(text_info=host_name_value)
+    DebugInfo.objects.create(text_info=host_password_value)
+    DebugInfo.objects.create(text_info=vm_name_value)
+    DebugInfo.objects.create(text_info=vm_status)
     if vm_status == "gray":
         res = set_vm_datastore(host_ip=reset_hostip, host_name=host_name_value, host_password=host_password_value,
                            vm_name=vm_name_value, reservation=reset_data)
