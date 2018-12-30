@@ -23,7 +23,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="portrait_scaling.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="portrait_scaling.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/home_application/portrait_scaling.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="127">
@@ -35,11 +35,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/home_application/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="517">
-              <caret line="134" column="10" lean-forward="true" selection-start-line="134" selection-start-column="10" selection-end-line="134" selection-end-column="10" />
+            <state relative-caret-position="251">
+              <caret line="135" column="52" lean-forward="true" selection-start-line="135" selection-start-column="52" selection-end-line="135" selection-end-column="52" />
               <folding>
                 <element signature="e#695#752#0" expanded="true" />
               </folding>
@@ -508,16 +508,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/home_application/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="517">
-          <caret line="134" column="10" lean-forward="true" selection-start-line="134" selection-start-column="10" selection-end-line="134" selection-end-column="10" />
-          <folding>
-            <element signature="e#695#752#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/home_application/vmware.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="133">
@@ -531,6 +521,16 @@
           <caret line="173" column="18" lean-forward="true" selection-start-line="173" selection-start-column="18" selection-end-line="173" selection-end-column="18" />
           <folding>
             <element signature="n#div#0;n#div#0;n#div#0;n#!!top" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/home_application/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="251">
+          <caret line="135" column="52" lean-forward="true" selection-start-line="135" selection-start-column="52" selection-end-line="135" selection-end-column="52" />
+          <folding>
+            <element signature="e#695#752#0" expanded="true" />
           </folding>
         </state>
       </provider>
