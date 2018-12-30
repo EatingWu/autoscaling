@@ -11,7 +11,7 @@ See the License for the specific language governing permissions and limitations 
 
 from common.mymako import render_mako_context,render_json
 from home_application.models import HostInfo,CeleryHostInfo,CeleryVMsLatestInfo,DatastoreInfo
-from vmware import reset_config
+from vmware import reset_config,set_vm_datastore
 
 def home(request):
     """
@@ -121,6 +121,25 @@ def reset_vms_mem(request):
     if vm_status == "gray":
         res = reset_config(host_ip=reset_hostip, host_name=host_name_value, host_password=host_password_value,
                            vm_type='memory',vm_name=vm_name_value, vm_reset=reset_mem)
+        if res:
+            return render_json({'result': 1})
+        else:
+            return render_json({'result': 2})
+    else:
+        return render_json({'result': 3})
+
+def reset_vms_data(request):
+    reset_hostip = request.POST.get('resetdata_hostip', '')
+    reset_vmnum = request.POST.get('resetdata_vmnum', '')
+    reset_data = int(request.POST.get('resetdata', ''))
+    host_name_value = HostInfo.objects.filter(host_ip=reset_hostip).values('host_name')[0].values()[0]
+    host_password_value = HostInfo.objects.filter(host_ip=reset_hostip).values('host_password')[0].values()[0]
+    vm_name_value = CeleryVMsLatestInfo.objects.filter(vm_number=reset_vmnum).values('vm_name')[0].values()[0]
+    vm_status = CeleryVMsLatestInfo.objects.filter(vm_number=reset_vmnum).values('vm_status')[0].values()[0]
+    #print host_name_value,host_password_value,vm_name_value,vm_status
+    if vm_status == "gray":
+        res = set_vm_datastore(host_ip=reset_hostip, host_name=host_name_value, host_password=host_password_value,
+                           vm_name=vm_name_value, reservation=reset_data)
         if res:
             return render_json({'result': 1})
         else:

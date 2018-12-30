@@ -24,4 +24,5 @@ urlpatterns = patterns(
     (r'^record_host/$', 'record_host'),
     (r'^reset_vms_cpu/$', 'reset_vms_cpu'),
     (r'^reset_vms_mem/$', 'reset_vms_mem'),
+    (r'^reset_vms_data/$', 'reset_vms_data'),
 )

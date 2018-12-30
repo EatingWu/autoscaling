@@ -330,3 +330,71 @@ def reset_config(host_ip,host_name,host_password,vm_type,vm_name,vm_reset):
     result = set_vm_reservation(server=server,types=vm_type,vm_name=vm_name,reservation=vm_reset,level='normal')
     #print result
     return result
+
+
+'''
+获取硬盘
+'''
+def get_disks(vm_obj):
+    disks = []
+    for device in vm_obj.properties.config.hardware.device:
+        if device._type == "VirtualDisk":
+            disks.append(device)
+    return disks
+
+
+'''
+获取硬盘大小
+'''
+def get_disk_size(vm_obj):
+    size = 0
+    for disk in get_disks(vm_obj):
+        size += disk.capacityInKB
+    return size
+
+
+'''
+调整存储配置函数
+'''
+def set_vm_datastore(host_ip, host_name, host_password, vm_name, reservation):
+    server = VIServer()
+    server.connect(host_ip, host_name, host_password)
+    vm_mor = server.get_vm_by_name(vm_name)
+    request = VI.ReconfigVM_TaskRequestMsg()
+    _this = request.new__this(vm_mor._mor)
+    _this.set_attribute_type(vm_mor._mor.get_attribute_type())
+    request.set_element__this(_this)
+    spec = request.new_spec()
+
+    disk_size = get_disk_size(vm_mor)
+
+    new_hdd = reservation
+    device_config_specs = []
+
+    if new_hdd * 1024 * 1024 > disk_size:
+        disk = get_disks(vm_mor)[-1]
+        hdd_in_GB = new_hdd * 1024 * 1024
+        new_disk_size = hdd_in_GB - disk_size + disk.capacityInKB
+
+        device_config_spec = spec.new_deviceChange()
+        device_config_spec.set_element_operation('edit')
+        disk._obj.set_element_capacityInKB(new_disk_size)
+        device_config_spec.set_element_device(disk._obj)
+        device_config_specs.append(device_config_spec)
+
+    if len(device_config_specs) != 0:
+        spec.set_element_deviceChange(device_config_specs)
+
+    request.set_element_spec(spec)
+    ret = server._proxy.ReconfigVM_Task(request)._returnval
+    task = VITask(ret, server)
+    status = task.wait_for_state([task.STATE_SUCCESS, task.STATE_ERROR])
+    ret_flag = False
+    if status == task.STATE_SUCCESS:
+        #ret = "VM <" + vm_name + "> successfully reconfigured"
+        ret_flag = True
+    elif status == task.STATE_ERROR:
+        #ret = "Error reconfiguring vm <" + vm_name + ">: %s" % task.get_error_message()
+        ret_flag = False
+
+    return ret_flag
