@@ -26,6 +26,11 @@
     <script src="https://magicbox.bk.tencent.com/static_api/v3/assets/kendoui-2015.2.624/js/kendo.all.min.js"></script>
     <script src="https://magicbox.bk.tencent.com/static_api/v3/assets/echarts-2.0/echarts-all.js"></script>
     <script src="https://magicbox.bk.tencent.com/static_api/v3/bk/js/bk.js"></script>
+    <!--带搜索表格-->
+    <link href="https://magicbox.bk.tencent.com/static_api/v3/assets/datatables-1.10.7/dataTables.bootstrap.css" rel="stylesheet"/>
+    <script src="https://magicbox.bk.tencent.com/static_api/v3/assets/datatables-1.10.7/jquery.dataTables.js"></script>
+    <script src="https://magicbox.bk.tencent.com/static_api/v3/assets/datatables-1.10.7/dataTables.bootstrap.js"></script>
+
     <!-- 数据埋点统计 -->
     <script src="http://magicbox.bk.tencent.com/static_api/analysis.js"></script>
     <!-- 以下两个插件用于在IE8以及以下版本浏览器支持HTML5元素和媒体查询，如果不需要用可以移除 -->
@@ -52,7 +57,7 @@
                         <div class="navbar-collapse collapse" id="king-header2-navbar-collapse">
                             <ul class="nav navbar-nav navbar-left hidden-sm">
                                 <%
-                                    home = host_list = host_info = vms_info = datastore_info = landscape_scaling = portrait_scaling = dev_guide = contactus = ''
+                                    home = host_list = host_info = vms_info = datastore_info = landscape_scaling = portrait_scaling = auto_scaling = dev_guide = contactus = ''
                                     relative_path = APP_PATH
                                     if relative_path == SITE_URL or relative_path.startswith(SITE_URL + "?"):
                                       home = 'king-navbar-active'
@@ -67,6 +72,8 @@
                                     elif relative_path.startswith(SITE_URL + "vms_info/"):
                                       vms_info = 'king-navbar-active'
                                     elif relative_path.startswith(SITE_URL + "portrait_scaling/"):
+                                      vms_info = 'king-navbar-active'
+                                    elif relative_path.startswith(SITE_URL + "auto_scaling/"):
                                       vms_info = 'king-navbar-active'
                                 %>
                                 <li class="${home}">
@@ -97,6 +104,11 @@
                                 <li class="portrait_scaling">
                                     <a href="${SITE_URL}portrait_scaling/">
                                         <span>纵向扩缩</span>
+                                    </a>
+                                </li>
+                                <li class="auto_scaling">
+                                    <a href="${SITE_URL}auto_scaling/">
+                                        <span>自动扩缩</span>
                                     </a>
                                 </li>
                             </ul>
