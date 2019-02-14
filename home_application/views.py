@@ -74,6 +74,12 @@ def auto_scaling(request):
     """
     return render_mako_context(request, '/home_application/auto_scaling.html')
 
+def manage_settings(request):
+    """
+    自动扩缩
+    """
+    return render_mako_context(request, '/home_application/manage_settings.html')
+
 def record_host(request):
     '''
     录入主机

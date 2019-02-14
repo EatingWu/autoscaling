@@ -22,6 +22,7 @@ urlpatterns = patterns(
     (r'^vms_info/$', 'vms_info'),
     (r'^portrait_scaling/$', 'portrait_scaling'),
     (r'^auto_scaling/$', 'auto_scaling'),
+    (r'^manage_settings/$', 'manage_settings'),
     (r'^record_host/$', 'record_host'),
     (r'^reset_vms_cpu/$', 'reset_vms_cpu'),
     (r'^reset_vms_mem/$', 'reset_vms_mem'),
